@@ -27,3 +27,16 @@ container.write('<h1 style="text-align: center;">Exploratory Data Analysis of th
          unsafe_allow_html=True)
 
 st.empty()
+
+st.sidebar.title("EDA Options")
+
+box_values = st.sidebar.selectbox(" ", options = ["About the dataset", "Data Distributions", "Correlations"])
+
+if box_values == "About the dataset":
+    st.write("Hello World")
+
+if box_values == "Data Distributions":
+    st.write("Hello Algeria")
+
+if box_values == "Correlations":
+    st.write("Hello Beni Kouffi")
