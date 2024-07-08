@@ -24,7 +24,7 @@ def plotBars(df):
                                       orientation = 'h', 
                                       name = obj_cols[c]), row = i, col = j)
                 c += 1
-    fig.update_layout({"title":"Categorical Features distributions"})
+    fig.update_layout({"title":"Sex distribution of the abalone dataset"})
     return fig
 
 def plotHistograms(df):
