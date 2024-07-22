@@ -32,48 +32,37 @@ st.empty()
 
 abalone_df = pd.read_csv("abalone.csv")
 
-def showDatasetInfo():
-    shapeColumn, featuresColumn, descriptiveStatsColumn = st.columns(3)
-
-    shapeColumn.subheader("Shape")
-    shapeColumn.write(abalone_df.shape)
-
-    featuresColumn.subheader("Features")
-    featuresColumn.write(pd.DataFrame({"Column Name" : abalone_df.columns}))
-
-    descriptiveStatsColumn.subheader("Descriptive Statistics")
-    descriptiveStatsColumn.dataframe(abalone_df.describe())
-
-    st.subheader("Data Sample")
-    st.dataframe(abalone_df.sample(20))
-
-    return 
-
-def showDataDistributions():
-    st.subheader("Bar Plots")
-    st.plotly_chart(plotBars(abalone_df))
-
-    st.subheader("Histograms")
-    st.plotly_chart(plotHistograms(abalone_df))
-
-def showCorrelations():
-    st.subheader("Pair Plot")
-    st.plotly_chart(plotPairPlots(abalone_df))
-
-    st.subheader("Heat Map")
-    st.plotly_chart(plotHeatMap(abalone_df))
-
 def eda():
     tab1, tab2, tab3 = st.tabs(["About the dataset", "Data Distributions", "Data Relationships"])
 
     with tab1:
-        st.write(showDatasetInfo())
+        shapeColumn, featuresColumn, descriptiveStatsColumn = st.columns(3)
+
+        shapeColumn.subheader("Shape")
+        shapeColumn.write(abalone_df.shape)
+
+        featuresColumn.subheader("Features")
+        featuresColumn.write(pd.DataFrame({"Column Name" : abalone_df.columns}))
+
+        descriptiveStatsColumn.subheader("Descriptive Statistics")
+        descriptiveStatsColumn.dataframe(abalone_df.describe())
+
+        st.subheader("Data Sample")
+        st.dataframe(abalone_df.sample(20))
 
     with tab2:
-        st.write(showDataDistributions())
+        st.subheader("Bar Plots")
+        st.plotly_chart(plotBars(abalone_df))
+
+        st.subheader("Histograms")
+        st.plotly_chart(plotHistograms(abalone_df))
 
     with tab3:
-        st.write(showCorrelations())
+        st.subheader("Pair Plot")
+        st.plotly_chart(plotPairPlots(abalone_df))
+
+        st.subheader("Heat Map")
+        st.plotly_chart(plotHeatMap(abalone_df))
 
 st.sidebar.title("Options")
 
