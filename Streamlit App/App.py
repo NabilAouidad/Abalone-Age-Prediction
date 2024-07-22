@@ -6,7 +6,7 @@ from distributions import plotBars, plotHistograms
 from correlations import plotPairPlots, plotHeatMap
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-st.set_page_config(layout = "wide", page_title = "Abalone EDA")
+st.set_page_config(layout = "wide", page_title = "Abalone Age Prediction")
 
 style = """
     <style>
@@ -23,7 +23,7 @@ style = """
 st.markdown(style, unsafe_allow_html = True)
 
 container = st.container(height = 125, border = False)
-container.write('<h1 style="text-align: center;">Exploratory Data Analysis of the Abalone Dataset</h1>', 
+container.write('<h1 style="text-align: center;">Abalone Age Prediction Web App</h1>', 
          unsafe_allow_html=True)
 
 st.empty()
@@ -47,6 +47,8 @@ def showDatasetInfo():
     st.subheader("Data Sample")
     st.dataframe(abalone_df.sample(20))
 
+    return 
+
 def showDataDistributions():
     st.subheader("Bar Plots")
     st.plotly_chart(plotBars(abalone_df))
@@ -61,15 +63,24 @@ def showCorrelations():
     st.subheader("Heat Map")
     st.plotly_chart(plotHeatMap(abalone_df))
 
-st.sidebar.title("EDA Options")
+def eda():
+    tab1, tab2, tab3 = st.tabs(["About the dataset", "Data Distributions", "Data Relationships"])
 
-box_values = st.sidebar.selectbox(" ", options = ["About the dataset", "Data Distributions", "Correlations"])
+    with tab1:
+        st.write(showDatasetInfo())
 
-if box_values == "About the dataset":
-    showDatasetInfo()
+    with tab2:
+        st.write(showDataDistributions())
 
-if box_values == "Data Distributions":
-    showDataDistributions()
+    with tab3:
+        st.write(showCorrelations())
 
-if box_values == "Correlations":
-    showCorrelations()
+st.sidebar.title("Options")
+
+box_values = st.sidebar.selectbox(" ", options = ["EDA", "Make Predictions"])
+
+if box_values == "EDA":
+    eda()
+
+if box_values == "Make Predictions":
+    st.write("Nothing to predict for the moment!")
