@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 from distributions import plotBars, plotHistograms
 from correlations import plotPairPlots, plotHeatMap
+import joblib 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout = "wide", page_title = "Abalone Age Prediction")
@@ -71,5 +72,26 @@ box_values = st.sidebar.selectbox(" ", options = ["EDA", "Make Predictions"])
 if box_values == "EDA":
     eda()
 
+model = joblib.load("AbalonePredictor.pkl")
+
 if box_values == "Make Predictions":
-    st.write("Nothing to predict for the moment!")
+    length = st.number_input("Length", 0.0, 0.815)
+    diam = st.number_input("Diameter", 0.0, 0.65)
+    height = st.number_input("Height", 0.0, 1.15)
+    whole = st.number_input("Whole Weight", 0.0, 3.0)
+    shucked = st.number_input("Shucked Weight", 0.0, 1.5)
+    viscera = st.number_input("Viscera Weight", 0.0, 0.8)
+    shell = st.number_input("Shell Weight", 0.0, 1.0)
+    sex_selectbox = st.selectbox("Sample Sex", options = ["M", "F", "I"])
+
+    if sex_selectbox == "M":
+        st.subheader("Sample Age")
+        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]) + 1.5)
+
+    if sex_selectbox == "F":
+        st.subheader("Sample Age")
+        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 1.0, 0.0]]) + 1.5)
+
+    if sex_selectbox == "I":
+        st.subheader("Sample Age")
+        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 0.0, 1.0]]) + 1.5)
