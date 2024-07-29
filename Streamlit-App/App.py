@@ -6,7 +6,7 @@ from distributions import plotBars, plotHistograms
 from correlations import plotPairPlots, plotHeatMap
 import joblib 
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout = "wide", page_title = "Abalone Age Prediction")
 
 style = """
