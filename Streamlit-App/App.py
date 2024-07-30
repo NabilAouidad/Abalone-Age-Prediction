@@ -86,11 +86,11 @@ if box_values == "Make Predictions":
 
     if sex_selectbox == "M":
         st.subheader("Sample Age")
-        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]) + 1.5)
+        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]))
 
     if sex_selectbox == "F":
         st.subheader("Sample Age")
-        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 1.0, 0.0]]) + 1.5)
+        st.write(model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 1.0, 0.0]]))
 
     if sex_selectbox == "I":
         st.subheader("Sample Age")
