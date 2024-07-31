@@ -82,19 +82,9 @@ if box_values == "Make Predictions":
     shucked = st.number_input("Shucked Weight", 0.0, 1.5)
     viscera = st.number_input("Viscera Weight", 0.0, 0.8)
     shell = st.number_input("Shell Weight", 0.0, 1.0)
-    sex_selectbox = st.selectbox("Sample Sex", options = ["M", "F", "I"])
 
-    if sex_selectbox == "M":
-        st.subheader("Sample Age")
-        X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]) + 1.5
-        st.write(X[0])
+    X = [[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]
+    result = model.predict(X) + 1.5
 
-    if sex_selectbox == "F":
-        st.subheader("Sample Age")
-        X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 1.0, 0.0]]) + 1.5
-        st.write(X[0])
-
-    if sex_selectbox == "I":
-        st.subheader("Sample Age")
-        X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 0.0, 1.0]]) + 1.5
-        st.write(X[0])
+    st.subheader("Sample Age")
+    st.write(result[0])
