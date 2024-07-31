@@ -4,7 +4,10 @@ import pandas as pd
 import plotly.express as px
 from distributions import plotBars, plotHistograms
 from correlations import plotPairPlots, plotHeatMap
-import joblib 
+import joblib
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 #st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout = "wide", page_title = "Abalone Age Prediction")
@@ -75,8 +78,8 @@ if box_values == "EDA":
 model = joblib.load("AbalonePredictor.pkl")
 
 if box_values == "Make Predictions":
-    length = st.number_input("Length", 0.0, 0.815)
-    diam = st.number_input("Diameter", 0.0, 0.65)
+    length = st.number_input("Length")
+    diam = st.number_input("Diameter")
     height = st.number_input("Height", 0.0, 1.15)
     whole = st.number_input("Whole Weight", 0.0, 3.0)
     shucked = st.number_input("Shucked Weight", 0.0, 1.5)
@@ -84,17 +87,22 @@ if box_values == "Make Predictions":
     shell = st.number_input("Shell Weight", 0.0, 1.0)
     sex_selectbox = st.selectbox("Sample Sex", options = ["M", "F", "I"])
 
-    if sex_selectbox == "M":
-        st.subheader("Sample Age")
-        X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]) + 1.5
-        st.write(X[0])
+    try:
 
-    if sex_selectbox == "F":
-        st.subheader("Sample Age")
-        X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 1.0, 0.0]]) + 1.5
-        st.write(X[0])
+        if sex_selectbox == "M":
+            st.subheader("Sample Age")
+            X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]) + 1.5
+            st.write(X[0])
 
-    if sex_selectbox == "I":
-        st.subheader("Sample Age")
-        X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 0.0, 1.0]]) + 1.5
-        st.write(X[0])
+        if sex_selectbox == "F":
+            st.subheader("Sample Age")
+            X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 1.0, 0.0]]) + 1.5
+            st.write(X[0])
+
+        if sex_selectbox == "I":
+            st.subheader("Sample Age")
+            X = model.predict([[length, diam, height, whole, shucked, viscera, shell, 0.0, 0.0, 1.0]]) + 1.5
+            st.write(X[0])
+    except Exception as e:
+        st.write(f"Error during prediction: {e}")
+        logging.error("Error during prediction", exc_info=True)
