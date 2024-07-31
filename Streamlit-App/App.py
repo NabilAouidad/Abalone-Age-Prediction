@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 from distributions import plotBars, plotHistograms
 from correlations import plotPairPlots, plotHeatMap
-import joblib
+import pickle
 
 #st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout = "wide", page_title = "Abalone Age Prediction")
@@ -73,7 +73,7 @@ if box_values == "EDA":
     eda()
 
 with open("Streamlit-App\eNetPredictor.pkl", 'rb') as f:
-    model = joblib.load(f)
+    model = pickle.load(f)
 
 if box_values == "Make Predictions":
     length = st.number_input("Length", 0.0)
