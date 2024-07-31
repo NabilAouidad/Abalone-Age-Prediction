@@ -72,7 +72,7 @@ box_values = st.sidebar.selectbox(" ", options = ["EDA", "Make Predictions"])
 if box_values == "EDA":
     eda()
 
-with open("Streamlit-App\eNetPredictor.pkl", 'rb') as f:
+with open("eNetPredictor.pkl", 'rb') as f:
     model = pickle.load(f)
 
 if box_values == "Make Predictions":
