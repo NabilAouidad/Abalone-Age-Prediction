@@ -72,7 +72,7 @@ box_values = st.sidebar.selectbox(" ", options = ["EDA", "Make Predictions"])
 if box_values == "EDA":
     eda()
 
-model = joblib.load("eNetPredictor.pkl")
+model = joblib.load("xgbPredictor.pkl")
 
 if box_values == "Make Predictions":
     length = st.number_input("Length", 0.0)
