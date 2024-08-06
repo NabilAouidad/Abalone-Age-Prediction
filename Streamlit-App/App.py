@@ -72,7 +72,7 @@ box_values = st.sidebar.selectbox(" ", options = ["EDA", "Make Predictions"])
 if box_values == "EDA":
     eda()
 
-model = joblib.load("xgbModel.pkl")
+model = joblib.load("eNetModel.pkl")
 
 if box_values == "Make Predictions":
     length = st.number_input("Length", 0.0)
@@ -83,8 +83,8 @@ if box_values == "Make Predictions":
     viscera = st.number_input("Viscera Weight", 0.0, 0.8)
     shell = st.number_input("Shell Weight", 0.0, 1.0)
 
-    X = [[length, diam, height, whole, shucked, viscera, shell, 1.0, 0.0, 0.0]]
-    result = model.predict(X) + 1.5
+    X = [[length, diam, height, whole, shucked, viscera, shell]]
+    result = model.predict(X)
 
     st.subheader("Sample Age")
     st.write(result[0])
