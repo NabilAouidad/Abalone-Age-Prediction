@@ -87,4 +87,4 @@ if box_values == "Make Predictions":
     result = model.predict(X)
 
     st.subheader("Sample Age")
-    st.write(result[0])
+    st.write(f"{abs(result[0]):.3f}")
