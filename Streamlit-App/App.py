@@ -43,7 +43,7 @@ def eda():
         shapeColumn.write(abalone_df.shape)
 
         featuresColumn.subheader("Features")
-        featuresColumn.write(pd.DataFrame({"Column Name" : abalone_df.columns}))
+        featuresColumn.write(pd.DataFrame({"Column Name" : abalone_df.columns}, index = range(1, len(abalone_df.columns)+1)))
 
         descriptiveStatsColumn.subheader("Descriptive Statistics")
         descriptiveStatsColumn.dataframe(abalone_df.describe())
